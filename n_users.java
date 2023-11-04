@@ -13,16 +13,17 @@ public class FullDuplexAudio {
         AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
 
         // You can add more user addresses as needed
-        String[] userAddresses = {"192.168.29.157", "192.168.29.158", "192.168.29.159"};
+        String[] userAddresses = {"192.168.126.208", "192.168.126.137", "192.168.126.155"};
         int basePort = 12345;
 
         for (int i = 0; i < userAddresses.length; i++) {
-            int senderPort = basePort + i;
-            int receiverPort = basePort + 1000 + i; // Offset receiver port to avoid conflicts
+            final String userAddress = userAddresses[i];
+            final int senderPort = basePort + i;
+            final int receiverPort = basePort + 1000 + i; // Offset receiver port to avoid conflicts
 
             executor.submit(() -> {
                 try {
-                    sendAudio(format, userAddresses[i], senderPort);
+                    sendAudio(format, userAddress, senderPort);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
